@@ -5,6 +5,3 @@ allowBuilds:
   fsevents: true
   sharp: true
   unrs-resolver: true
-allowBuilds:
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
