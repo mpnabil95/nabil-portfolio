@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Braces,BrainCircuit,ScanText,ChartNoAxesCombined,ArrowUpRight,ArrowDown} from 'lucide-react';
+import {Braces,BrainCircuit,ScanText,ChartNoAxesCombined,ArrowUpRight,ArrowDown,Medal} from 'lucide-react';
 import {Header,Footer,SectionLabel,DataField,ProjectCard} from '@/components/portfolio';
 import {projects} from '@/lib/portfolio-data';
 import {profile} from '@/lib/profile';
@@ -20,7 +20,7 @@ export default function Home(){return <div id="top"><Header/><main id="main-cont
       <div className="foundation-award">
         <span className="small-label">RECOGNITION</span>
         <div className="foundation-award-heading">
-          <span aria-hidden="true">02</span>
+          <span className="foundation-award-icon" aria-hidden="true"><Medal size={24} strokeWidth={1.8}/></span>
           <div><strong>OSN-K Informatics</strong><p>2nd place · Tanah Datar · 2023</p></div>
         </div>
       </div>
