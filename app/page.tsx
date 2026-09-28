@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Braces,BrainCircuit,ScanText,ChartNoAxesCombined,ArrowUpRight,ArrowDown,Medal} from 'lucide-react';
+import {Braces,BrainCircuit,ScanText,ChartNoAxesCombined,ArrowUpRight,ArrowDown} from 'lucide-react';
 import {Header,Footer,SectionLabel,DataField,ProjectCard} from '@/components/portfolio';
 import {projects} from '@/lib/portfolio-data';
 import {profile} from '@/lib/profile';
@@ -20,7 +20,14 @@ export default function Home(){return <div id="top"><Header/><main id="main-cont
       <div className="foundation-award">
         <span className="small-label">RECOGNITION</span>
         <div className="foundation-award-heading">
-          <span className="foundation-award-icon" aria-hidden="true"><Medal size={24} strokeWidth={1.8}/></span>
+          <span className="foundation-award-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" focusable="false">
+              <path d="M11 6h10l8 17-9 5L11 6Z" fill="#d2dbe7" stroke="#64758c" strokeWidth="1.5" strokeLinejoin="round"/>
+              <path d="M27 6h10L28 28l-9-5 8-17Z" fill="#e5ebf2" stroke="#64758c" strokeWidth="1.5" strokeLinejoin="round"/>
+              <circle cx="24" cy="32" r="11" fill="#f4f6fa" stroke="#64758c" strokeWidth="2"/>
+              <text x="24" y="37" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontSize="15" fontWeight="700" fill="#40536d">2</text>
+            </svg>
+          </span>
           <div><strong>OSN-K Informatics</strong><p>2nd place · Tanah Datar · 2023</p></div>
         </div>
       </div>
