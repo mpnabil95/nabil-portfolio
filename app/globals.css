@@ -52,3 +52,34 @@ h2>span{color:#6357b6}.about-section{background:#fff;border-block:1px solid #e0e
 /* Verified contact details and locally bundled resume. */
 .contact-email{display:block;width:fit-content;margin-top:20px;color:#dbe6ff;font-size:16px;overflow-wrap:anywhere;text-underline-offset:5px}.contact-email:hover{text-decoration:underline}.contact-links{display:flex;align-items:center;flex-wrap:wrap;gap:18px 24px;margin-top:24px}.contact-links a{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:#d5e1fb;padding-block:6px;border-bottom:1px solid #93a5d36b;transition:color .2s,border-color .2s}.contact-links a:hover{color:white;border-color:white}.resume-link{padding-block:13px;border-bottom:1px solid #aebbe5}.hero-actions{flex-wrap:wrap}.resume-link:hover svg{transform:translateY(3px)}
 @media(max-width:600px){.hero-actions{gap:13px 22px}.hero-actions .button{padding-inline:18px;gap:18px}.hero-actions .resume-link{font-size:14px;gap:8px}.contact-links{gap:14px 20px}.contact-email{font-size:16px}}
+
+/* Education and selected earned credentials. */
+.foundation-education{display:flex;flex-direction:column}
+.foundation-education>.muted{color:#5a6a83}
+.foundation-award{margin-top:auto;padding-top:28px;border-top:1px solid #d8e1ef}
+.foundation-award .small-label{color:#4e5f76}
+.foundation-award-heading{display:flex;align-items:center;gap:13px;margin-top:16px}
+.foundation-award-heading>span{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:12px;background:linear-gradient(140deg,#346fc1,#7864c5);color:#fff;font:600 14px/1 monospace;box-shadow:0 7px 18px #475eb329}
+.foundation-award-heading strong{font-size:16px;font-weight:500;letter-spacing:-.02em;color:#263953}
+.foundation-award-heading p{margin:2px 0 0;color:#59677f}
+.programs-panel{position:relative;overflow:hidden}
+.programs-heading{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.programs-heading .small-label{color:#55436e}
+.programs-heading>span:last-child{font:11px/1.5 monospace;color:#655482;white-space:nowrap}
+.program-list{margin-top:23px}
+.program-item{display:grid;grid-template-columns:27px minmax(0,1fr);gap:14px;padding:19px 0;border-top:1px solid #dcd5ed}
+.program-item:first-child{border-top:0;padding-top:0}
+.program-number{padding-top:3px;font:11px/1.4 monospace;color:#75618f}
+.program-content{min-width:0}
+.program-title-row{display:flex;align-items:start;justify-content:space-between;gap:16px}
+.program-title-row h3{margin:0;font-size:17px;line-height:1.35;font-weight:500;letter-spacing:-.03em;color:#273550}
+.program-title-row>span{padding-top:4px;font:10px/1.35 monospace;white-space:nowrap;color:#655482}
+.program-content>p{margin:6px 0 0;font-size:12px;line-height:1.5;color:#59677f}
+.program-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.program-tags>span{border:1px solid #d9cdec;background:#fbf8ff;color:#685487;border-radius:100px;padding:6px 10px;font-size:11px;line-height:1.2}
+.programs-link{display:flex;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid #dcd5ed;margin-top:2px;padding-top:20px;color:#5d4d93;font-size:12px;font-weight:500;transition:color .2s}
+.programs-link svg{transition:transform .2s}
+.programs-link:hover{color:#332568}
+.programs-link:hover svg{transform:translate(2px,-2px)}
+@media(max-width:1000px){.program-title-row{flex-wrap:wrap;gap:3px 12px}}
+@media(max-width:600px){.foundation-award{margin-top:45px}.programs-heading>span:last-child{display:none}.program-item{gap:10px;padding-block:20px}.program-title-row{display:block}.program-title-row h3{font-size:19px}.program-title-row>span{display:block;margin-top:6px;font-size:11px}.program-content>p{font-size:13px}.program-tags>span{font-size:12px}.programs-link{font-size:13px}}
