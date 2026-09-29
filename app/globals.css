@@ -59,6 +59,7 @@ h2>span{color:#6357b6}.about-section{background:#fff;border-block:1px solid #e0e
 .foundation-award{margin-top:42px;padding-top:26px;border-top:1px solid #d8e1ef}
 .foundation-award .small-label{color:#4e5f76}
 .foundation-award-heading{display:flex;align-items:center;gap:15px;margin-top:16px}
+.foundation-award-heading+.foundation-award-heading{padding-top:16px;border-top:1px solid #e9edf4}
 .foundation-award-icon{display:grid;place-items:center;flex:0 0 48px;height:48px;border:1px solid #ced7e4;border-radius:14px;background:linear-gradient(145deg,#fff,#e6ecf4);color:#40536d;box-shadow:0 6px 18px #61789524}
 .foundation-award-heading strong{font-size:18px;line-height:1.35;font-weight:500;letter-spacing:-.02em;color:#263953}
 .foundation-award-heading p{margin:3px 0 0;color:#59677f;line-height:1.55}
