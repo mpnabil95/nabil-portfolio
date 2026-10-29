@@ -1,0 +1,258 @@
+.methodsPractice {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 36px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(135, 146, 186, 0.34);
+}
+
+.methodsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+  margin-bottom: 2px;
+}
+
+.methodsLabel {
+  color: #b9c8ed;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+.methodsHeader p {
+  max-width: 590px;
+  margin: 0;
+  color: #d6def1;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.methodsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.methodsCard {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 23px 24px 22px;
+  border: 1px solid rgba(172, 193, 241, 0.3);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(49, 66, 105, 0.9), rgba(30, 42, 76, 0.94));
+  box-shadow: 0 12px 28px rgba(5, 11, 31, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.methodsCard::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, #91c9ff, #b69bff 52%, #7ee0d4);
+  content: "";
+}
+
+.methodsCard:nth-child(2) {
+  background: linear-gradient(145deg, rgba(65, 54, 96, 0.94), rgba(40, 39, 76, 0.96));
+}
+
+.methodsCard:nth-child(3) {
+  background: linear-gradient(145deg, rgba(36, 73, 83, 0.94), rgba(30, 50, 72, 0.96));
+}
+
+.methodsCard:nth-child(4) {
+  background: linear-gradient(145deg, rgba(69, 61, 82, 0.94), rgba(44, 43, 68, 0.96));
+}
+
+.methodsCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(183, 203, 255, 0.62);
+  box-shadow: 0 17px 32px rgba(5, 11, 31, 0.23);
+}
+
+.methodsCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.methodsNumber {
+  color: #a9d7ff;
+  font: 600 11px/1.4 monospace;
+  letter-spacing: 0.08em;
+}
+
+.methodsCard:nth-child(2) .methodsNumber {
+  color: #d4baff;
+}
+
+.methodsCard:nth-child(3) .methodsNumber {
+  color: #9cebe2;
+}
+
+.methodsCard:nth-child(4) .methodsNumber {
+  color: #ffdaa9;
+}
+
+.methodsEyebrow {
+  color: #cbd6f0;
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.methodsCard h3 {
+  margin: 0 0 17px;
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+}
+
+.methodsPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.methodsPills span {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 7px 10px;
+  border: 1px solid rgba(191, 207, 244, 0.28);
+  border-radius: 7px;
+  background: rgba(9, 17, 42, 0.48);
+  color: #f3f6ff;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.methodsPills span:hover {
+  border-color: rgba(191, 207, 244, 0.48);
+  background: rgba(126, 150, 221, 0.2);
+}
+
+.workflowLine {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 12px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(135, 146, 186, 0.3);
+  color: #e1e8fa;
+}
+
+.workflowLine > span {
+  flex-shrink: 0;
+  color: #cbd6f0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.workflowLine p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #e1e8fa;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.workflowLine i {
+  display: inline-block;
+  flex: 0 0 3px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #aab9dc;
+}
+
+@media (max-width: 1024px) {
+  .methodsHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .methodsGrid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .methodsCard {
+    padding: 21px 19px 20px;
+  }
+
+  .methodsCard h3 {
+    font-size: 20px;
+  }
+
+  .methodsEyebrow {
+    font-size: 9px;
+  }
+
+  .workflowLine {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .methodsPractice {
+    gap: 17px;
+    margin-top: 28px;
+    padding-top: 20px;
+  }
+
+  .methodsHeader p {
+    font-size: 12px;
+  }
+
+  .methodsCardTop {
+    margin-bottom: 15px;
+  }
+
+  .methodsCard h3 {
+    font-size: 19px;
+  }
+
+  .methodsPills {
+    gap: 7px;
+  }
+
+  .methodsPills span {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+  .workflowLine p {
+    gap: 9px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .methodsCard {
+    transition: none;
+  }
+
+  .methodsCard:hover {
+    transform: none;
+  }
+}
