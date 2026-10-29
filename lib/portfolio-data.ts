@@ -40,5 +40,44 @@ export const projects:Project[] = [
     'Inputs beyond 128 tokens are truncated. CSV-backed history is a prototype workflow and may not persist across hosting restarts.'
   ],
   nextSteps:'Separate validation and test data, build an independently human-annotated evaluation set, and review errors involving context, negation, sarcasm, and class imbalance.'
+},
+{
+  slug:'gojek-sentiment-analysis',
+  number:'04',
+  title:'Gojek Review Sentiment Analysis',
+  shortTitle:'What 15,000 reviews can tell us.',
+  category:'NATURAL LANGUAGE PROCESSING · SENTIMENT ANALYSIS',
+  description:'Comparing three Indonesian sentiment classifiers, from sparse text features to a bidirectional LSTM.',
+  color:'green',
+  tools:['Python','Pandas','Scikit-learn','PyTorch'],
+  repo:github+'/analisis-sentimen-ulasan-gojek',
+  source:github+'/analisis-sentimen-ulasan-gojek/blob/main/README.md',
+  intro:'An end-to-end Indonesian NLP project that analyzes Google Play Store reviews of Gojek, from text preprocessing and lexicon-based pseudo-labeling to three-class model training, evaluation, and inference.',
+  problem:'App-store reviews contain praise, complaints, and neutral descriptions. This project compares machine-learning and deep-learning approaches for classifying Indonesian reviews into negative, neutral, and positive sentiment, while making the limits of automatically generated labels explicit.',
+  dataset:'The repository contains 15,000 raw Google Play Store reviews for Gojek. After preprocessing and deduplication, 10,863 unique texts were used for modeling: 5,110 negative, 4,074 positive, and 1,679 neutral pseudo-labels. The labels come from a weighted sentiment lexicon and simple negation rules, not independent human annotation.',
+  approach:[
+    {title:'Prepare Indonesian review text',text:'Clean text noise, normalize slang and case, filter stopwords while preserving selected negation terms, apply lightweight rule-based stemming, and remove duplicate processed texts.'},
+    {title:'Generate sentiment pseudo-labels',text:'Score positive and negative lexicon matches, apply simple negation rules, and assign negative, neutral, or positive labels. This creates a reproducible target, but errors in the lexicon labels can carry into training and evaluation.'},
+    {title:'Compare three model approaches',text:'Train LinearSVC with TF-IDF unigram/bigram features (80:20 split), Logistic Regression with Bag-of-Words features (70:30 split), and a PyTorch Bidirectional LSTM with word embeddings (80:20 split and validation data). Evaluate accuracy, macro F1, per-class metrics, and confusion matrices.'}
+  ],
+  results:[
+    {value:'92.50%',label:'Best test accuracy',context:'LinearSVC + TF-IDF; evaluated against lexicon-generated pseudo-labels on an 80:20 split.'},
+    {value:'0.9052',label:'Macro F1-score',context:'LinearSVC + TF-IDF across negative, neutral, and positive pseudo-label classes.'},
+    {value:'10,863',label:'Unique modeling texts',context:'Processed and deduplicated from 15,000 raw Google Play Store reviews.'}
+  ],
+  insights:[
+    {title:'Sparse text features performed strongly in this experiment.',text:'LinearSVC + TF-IDF reached 92.50% test accuracy, compared with 90.76% for Logistic Regression + Bag-of-Words and 89.09% for the Bidirectional LSTM. Because the experiments use different train/test proportions, this is a comparison of the documented setups rather than a fully controlled algorithm-only benchmark.'},
+    {title:'Neutral sentiment was the most difficult class.',text:'For LinearSVC, neutral sentiment had an F1-score of 0.8369, below negative (0.9493) and positive (0.9292). Reviews without clear praise or criticism are more difficult to separate using the current lexicon-derived labels.'},
+    {title:'The repository supports reproducible inspection.',text:'The project includes processed data, saved model artifacts, evaluation reports, visualizations, inference examples, and automated tests, making the workflow easier to inspect and rerun.'}
+  ],
+  limitations:[
+    'Labels are generated using a sentiment lexicon and simple negation rules; evaluation measures agreement with pseudo-labels, not independently annotated human sentiment.',
+    'The model experiments use different train/test proportions, so the scores are not a perfectly controlled head-to-head benchmark.',
+    'Slang, sarcasm, mixed sentiment, and complex negation can still lead to incorrect labels or predictions.',
+    'The collected review snapshot is not necessarily representative of all Gojek users or current app-store sentiment.'
+  ],
+  nextSteps:'Build an independently human-annotated evaluation set, inspect errors in neutral and mixed-sentiment reviews, compare models using a consistent split, and evaluate on newer reviews.',
+  image:'https://raw.githubusercontent.com/mpnabil95/analisis-sentimen-ulasan-gojek/main/results/figures/perbandingan_akurasi.png',
+  imageAlt:'Test accuracy comparison for LinearSVC with TF-IDF, Logistic Regression with Bag-of-Words, and Bidirectional LSTM.'
 }
 ];
