@@ -89,3 +89,11 @@ h2>span{color:#6357b6}.about-section{background:#fff;border-block:1px solid #e0e
 .programs-link:hover svg{transform:translate(2px,-2px)}
 @media(max-width:1000px){.program-title-row{flex-wrap:wrap;gap:3px 12px}}
 @media(max-width:600px){.foundation-award{margin-top:36px}.programs-heading>span:last-child{display:none}.program-item{gap:10px;padding-block:20px}.program-title-row{display:block}.program-title-row h3{font-size:19px}.program-title-row>span{display:block;margin-top:6px;font-size:11px}.program-content>p{font-size:13px}.program-tags>span{font-size:12px}.program-coursework li{font-size:13px}.programs-link{font-size:13px}}
+
+/* Evidence-backed methods added to MY TOOLKIT. */
+.methods-practice{display:flex;flex-direction:column;gap:14px;margin-top:26px;padding-top:22px;border-top:1px solid #8792ba40}
+.methods-label{font-size:12px;letter-spacing:.08em;color:#c0cbe4}
+.methods-tags{display:flex;flex-wrap:wrap;gap:8px}
+.methods-tags>span{font-size:12px;line-height:1.4;padding:7px 10px;border:1px solid #aebde22b;background:#0b122744;color:#e1e9ff;border-radius:6px}
+.workflow-line p{flex-wrap:wrap}
+@media(max-width:600px){.methods-practice{margin-top:20px;padding-top:18px}.methods-label{font-size:11px}.methods-tags>span{font-size:12px}}
