@@ -1,0 +1,430 @@
+:global(.toolkit-section).toolkitSection {
+  position: relative;
+  overflow: hidden;
+  padding-block: 96px 92px;
+  border-block: 1px solid #3b4776;
+  background:
+    radial-gradient(ellipse at 88% 3%, rgba(112, 79, 191, 0.34), transparent 48%),
+    radial-gradient(ellipse at 4% 100%, rgba(45, 112, 156, 0.2), transparent 44%),
+    linear-gradient(125deg, #14294c 0%, #1b2349 58%, #28224e 100%);
+  color: #f5f6ff;
+}
+
+.toolkitSection::before {
+  position: absolute;
+  top: -190px;
+  right: -110px;
+  width: 440px;
+  height: 440px;
+  border: 1px solid rgba(174, 179, 255, 0.1);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.toolkitSection::after {
+  position: absolute;
+  top: -115px;
+  right: -35px;
+  width: 290px;
+  height: 290px;
+  border: 1px solid rgba(174, 179, 255, 0.08);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.toolkitSection :global(.wrap) {
+  position: relative;
+  z-index: 1;
+}
+
+.toolkitWrap {
+  max-width: 1432px;
+}
+
+.toolkitSection :global(.section-label) {
+  margin-bottom: 38px;
+  color: #c6d1f4;
+}
+
+.toolkitSection :global(.section-label) > span {
+  border-color: #6b72b3;
+  background: rgba(101, 118, 204, 0.2);
+  color: #d1dcff;
+}
+
+.toolkitSection .toolkitHeading {
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: 42px;
+}
+
+.toolkitSection .toolkitHeading h2 {
+  color: #ffffff;
+}
+
+.toolkitSection .toolkitHeading > p {
+  max-width: 390px;
+  margin-bottom: 5px;
+  color: #c0cae2;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.toolkitSection .toolkitGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 15px;
+  border: 0;
+}
+
+.toolkitSection .toolkitCard {
+  --accent: #9ac9ff;
+  display: flex;
+  min-width: 0;
+  min-height: 264px;
+  flex-direction: column;
+  padding: 24px 22px 22px;
+  border: 1px solid rgba(172, 193, 241, 0.25);
+  border-top: 2px solid var(--accent);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(46, 65, 99, 0.94), rgba(30, 46, 75, 0.96));
+  box-shadow: 0 12px 26px rgba(5, 11, 31, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.toolkitSection .toolkitCard:nth-child(2) {
+  --accent: #c4acff;
+  background: linear-gradient(145deg, rgba(62, 53, 91, 0.96), rgba(40, 39, 75, 0.97));
+}
+
+.toolkitSection .toolkitCard:nth-child(3) {
+  --accent: #88dfd6;
+  background: linear-gradient(145deg, rgba(37, 70, 82, 0.96), rgba(30, 49, 70, 0.97));
+}
+
+.toolkitSection .toolkitCard:nth-child(4) {
+  --accent: #ffd39a;
+  background: linear-gradient(145deg, rgba(70, 61, 80, 0.96), rgba(44, 43, 68, 0.97));
+}
+
+.toolkitSection .toolkitCard:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 55%, rgba(172, 193, 241, 0.25));
+  box-shadow: 0 18px 34px rgba(5, 11, 31, 0.25);
+}
+
+.toolkitSection .toolkitIcon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+  color: var(--accent);
+}
+
+.toolkitSection .toolkitIcon > svg {
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+  border: 1px solid color-mix(in srgb, var(--accent) 72%, transparent);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.toolkitSection .toolkitIcon > span {
+  color: var(--accent);
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.toolkitSection .toolkitCardTitle {
+  margin: 0 0 11px;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1.35;
+  letter-spacing: -0.4px;
+}
+
+.toolkitSection .toolkitCardCopy {
+  min-height: 68px;
+  margin: 0;
+  color: #d1daeb;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.toolkitSection .toolkitTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 17px;
+}
+
+.toolkitSection .toolkitTags :global(span) {
+  padding: 6px 8px;
+  border: 1px solid rgba(191, 207, 244, 0.22);
+  border-radius: 6px;
+  background: rgba(9, 17, 42, 0.28);
+  color: #edf2ff;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.methodsPractice {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  margin-top: 43px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(157, 174, 220, 0.28);
+}
+
+.methodsHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.methodsLabel {
+  color: #c7d4f5;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+.methodsHeader p {
+  max-width: 570px;
+  margin: 0;
+  color: #c4cfe8;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.methodsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.methodsCard {
+  --accent: #9ac9ff;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 20px 21px 19px;
+  border: 1px solid rgba(172, 193, 241, 0.24);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(43, 59, 91, 0.82), rgba(27, 41, 69, 0.88));
+  box-shadow: 0 9px 22px rgba(5, 11, 31, 0.12);
+}
+
+.methodsCard::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--accent);
+  content: "";
+}
+
+.methodsCard:nth-child(2) {
+  --accent: #c4acff;
+  background: linear-gradient(145deg, rgba(57, 49, 86, 0.86), rgba(35, 35, 68, 0.9));
+}
+
+.methodsCard:nth-child(3) {
+  --accent: #88dfd6;
+  background: linear-gradient(145deg, rgba(35, 66, 78, 0.88), rgba(26, 45, 66, 0.92));
+}
+
+.methodsCard:nth-child(4) {
+  --accent: #ffd39a;
+  background: linear-gradient(145deg, rgba(64, 56, 75, 0.88), rgba(39, 39, 63, 0.92));
+}
+
+.methodsCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.methodsNumber {
+  color: var(--accent);
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.methodsEyebrow {
+  color: #b9c7e4;
+  font-size: 9px;
+  line-height: 1.55;
+  letter-spacing: 0.09em;
+  text-align: right;
+}
+
+.methodsCard h3 {
+  margin: 0 0 14px;
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.3px;
+}
+
+.methodsPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.methodsPills span {
+  max-width: 100%;
+  padding: 6px 8px;
+  border: 1px solid rgba(191, 207, 244, 0.23);
+  border-radius: 6px;
+  background: rgba(8, 15, 37, 0.32);
+  color: #edf2ff;
+  font-size: 10px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.workflowLine {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 9px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(157, 174, 220, 0.25);
+  color: #d9e2f7;
+}
+
+.workflowLine > span {
+  flex-shrink: 0;
+  color: #d0dcf7;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+}
+
+.workflowLine p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 11px;
+  margin: 0;
+  color: #d9e2f7;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.workflowLine i {
+  display: inline-block;
+  flex: 0 0 3px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #aab9dc;
+}
+
+@media (max-width: 1100px) {
+  .toolkitSection .toolkitGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .toolkitSection .toolkitCard {
+    min-height: 235px;
+  }
+
+  .methodsHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 700px) {
+  :global(.toolkit-section).toolkitSection {
+    padding-block: 72px 68px;
+  }
+
+  .toolkitSection .toolkitHeading {
+    display: block;
+    margin-bottom: 31px;
+  }
+
+  .toolkitSection .toolkitHeading > p {
+    margin-top: 18px;
+    font-size: 13px;
+  }
+
+  .toolkitSection .toolkitGrid {
+    gap: 12px;
+  }
+
+  .toolkitSection .toolkitCard {
+    min-height: 0;
+    padding: 21px 19px;
+  }
+
+  .toolkitSection .toolkitCardCopy {
+    min-height: 0;
+  }
+
+  .toolkitSection .toolkitIcon {
+    margin-bottom: 19px;
+  }
+
+  .methodsGrid {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .methodsCard {
+    padding: 18px;
+  }
+
+  .workflowLine {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .toolkitSection .toolkitGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolkitSection .toolkitCardTitle {
+    font-size: 19px;
+  }
+
+  .methodsCard h3 {
+    font-size: 17px;
+  }
+
+  .methodsPills span {
+    font-size: 10px;
+  }
+
+  .workflowLine p {
+    gap: 8px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolkitSection .toolkitCard {
+    transition: none;
+  }
+
+  .toolkitSection .toolkitCard:hover {
+    transform: none;
+  }
+}
