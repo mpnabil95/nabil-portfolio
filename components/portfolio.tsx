@@ -1,65 +1,421 @@
-'use client';
-import Link from 'next/link';
-import {useState} from 'react';
-import {ArrowUpRight,ArrowDown,ArrowUp,Menu,GitBranch} from 'lucide-react';
-import {Sheet,SheetTrigger,SheetContent,SheetTitle,SheetDescription} from '@/components/ui/sheet';
-import {github, type Project} from '@/lib/portfolio-data';
-import {profile} from '@/lib/profile';
-export function Header(){const [open,setOpen]=useState(false);return <header className="site-header"><div className="wrap nav-inner"><Link href="/" className="wordmark" aria-label="Nabil home">nabil<span>.</span></Link><nav className="desktop-nav" aria-label="Main navigation"><Link href="/#about">About</Link><Link href="/#toolkit">Toolkit</Link><Link href="/#work">Selected work</Link><Link href="/#experience">Experience</Link></nav><a className="nav-contact" href="#contact">Let’s connect <ArrowUpRight size={16}/></a><Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><button className="mobile-menu" aria-label="Open navigation"><Menu size={23}/></button></SheetTrigger><SheetContent className="mobile-panel"><SheetTitle className="wordmark">nabil<span>.</span></SheetTitle><SheetDescription>Explore my work and the thinking behind it.</SheetDescription><nav aria-label="Mobile navigation">{[['About','/#about'],['Toolkit','/#toolkit'],['Selected work','/#work'],['Experience','/#experience'],['All projects','/projects'],['Let’s connect','#contact']].map(([label,href])=><Link key={label} href={href} onClick={()=>setOpen(false)}>{label}<ArrowUpRight size={20}/></Link>)}</nav></SheetContent></Sheet></div></header>}
-export function SectionLabel({number,children}:{number:string;children:React.ReactNode}){return <div className="section-label"><span>{number}</span>{children}</div>}
-export function Footer(){return <footer id="contact" className="contact-section"><div className="wrap"><SectionLabel number="06">LET’S CONNECT</SectionLabel><div className="contact-grid"><h2>Good questions.<br/><span>Better together.</span></h2><div><p>Have an interesting problem,<br/>a project idea, or a new perspective?<br/>I’d love to connect.</p><a className="button button-white" href={"mailto:"+profile.email}>Let’s talk by email <ArrowUpRight size={18}/></a><a className="contact-email" href={"mailto:"+profile.email}>{profile.email}</a><div className="contact-links"><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={15}/></a><a href={github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15}/></a><a href={profile.resume} download={profile.resumeFilename}>Download CV <ArrowDown size={15}/></a></div></div></div><div className="footer-bottom"><p>© 2026 Muhammad Pangeran Nabil</p><span>Built with curiosity. Grounded in evidence.</span><a href="#top">Back to top <ArrowUp size={15}/></a></div></div></footer>}
-export function DataField(){return <div className="data-field" aria-label="Abstract data points forming a pattern"><div className="field-label"><span className="tiny-cross">+</span> FROM PATTERNS TO PERSPECTIVE</div><svg viewBox="0 0 560 475" role="img" aria-label="A field of blue points with an emerging signal"><defs><pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse"><path d="M 56 0 L 0 0 0 56" fill="none" stroke="#9598ff" strokeWidth=".5"/></pattern><radialGradient id="fade"><stop offset="0%" stopColor="#3432a0" stopOpacity="0"/><stop offset="100%" stopColor="#3432a0"/></radialGradient></defs><rect width="560" height="475" fill="url(#grid)"/><ellipse cx="282" cy="230" rx="213" ry="177" fill="none" stroke="#919aff" strokeDasharray="3 7"/><ellipse cx="282" cy="230" rx="154" ry="126" fill="none" stroke="#696bc5"/>{Array.from({length:340},(_,i)=>{const a=i*2.399963;const r=11.5*Math.sqrt(i);const x=282+Math.cos(a)*r;const y=230+Math.sin(a)*r*.77;return <circle key={i} cx={x.toFixed(3)} cy={y.toFixed(3)} r={i%9===0?3:1.8} fill={i%5===0?'#83edff':'#b6bcff'} opacity={.25+(i%6)*.11}/>})}<path className="signal-path" pathLength="1" d="M91 296 C166 310 168 203 239 221 S343 252 395 164 S444 131 470 133" stroke="#7de3ff" strokeWidth="3" fill="none"/><circle className="signal-point" cx="395" cy="164" r="6" fill="#fff" stroke="#9b85ff" strokeWidth="3"/><path d="M399 158 L423 122 L476 122" fill="none" stroke="#9caee1"/><text x="422" y="109" fill="#daedff" fontSize="12" fontFamily="monospace">a useful signal.</text><text x="73" y="412" fill="#8d98ab" fontSize="10" fontFamily="monospace">x</text><text x="487" y="62" fill="#8d98ab" fontSize="10" fontFamily="monospace">y</text></svg><div className="field-bottom"><span>QUESTION → EXPLORE → UNDERSTAND</span><span>FIG. 001</span></div></div>}
-export function ProjectVisual({project:p}:{project:Project}) {
-  const isGojek = p.number === '04';
-  return <div className={'project-visual '+p.color}>
-    <div className="visual-heading">
-      <span>{p.number==='01'?'OLIST / ANALYTICAL SNAPSHOT':p.number==='02'?'STUDENT SUCCESS / REVIEW POLICY':isGojek?'GOJEK / SENTIMENT ANALYSIS':'INDOBERT / TEXT TO SIGNAL'}</span>
-      <span>{p.number==='01'?'2016—2018':p.number==='02'?'HISTORICAL HOLDOUT':isGojek?'GOOGLE PLAY REVIEWS':'INDONESIAN NLP'}</span>
-    </div>
-    {p.number==='01'?
-      <div className="olist-art">
-        <div className="order-total"><span>96,478</span><p>delivered orders.<br/>One connected picture.</p></div>
-        <div className="gmv-bars">
-          <div><span>Product GMV</span><strong>R$13.22M</strong><i style={{width:'85.75%'}}/></div>
-          <div><span>Order value, incl. freight</span><strong>R$15.42M</strong><i style={{width:'100%'}}/></div>
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpRight,
+  BrainCircuit,
+  ChartNoAxesCombined,
+  Database,
+  GitBranch,
+  Github,
+  Linkedin,
+  Mail,
+  Menu,
+  MessageSquareText,
+  X,
+} from "lucide-react";
+import { github, type Project } from "@/lib/portfolio-data";
+import { profile } from "@/lib/profile";
+
+const navigation = [
+  { label: "Projects", href: "/projects/" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Contact", href: "/#contact" },
+];
+
+export function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <header className="site-header">
+      <div className="wrap nav-inner">
+        <Link href="/" className="wordmark" aria-label="Nabil home">
+          nabil<span>.</span>
+        </Link>
+
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {navigation.map((item) => (
+            <Link href={item.href} key={item.label}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="nav-socials" aria-label="Social links">
+          <a href={`mailto:${profile.email}`} aria-label="Send email">
+            <Mail size={16} />
+          </a>
+          <a href={github} target="_blank" rel="noreferrer" aria-label="GitHub">
+            <Github size={16} />
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <Linkedin size={16} />
+          </a>
         </div>
+
+        <button
+          className="mobile-menu"
+          type="button"
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen((value) => !value)}
+        >
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
-    :p.number==='02'?
-      <div className="student-art">
-        <div className="recall-ring">
-          <svg viewBox="0 0 180 180" aria-hidden="true">
-            <circle cx="90" cy="90" r="76" fill="none" stroke="#dcd8eb" strokeWidth="8"/>
-            <circle cx="90" cy="90" r="76" fill="none" stroke="#7465a9" strokeWidth="8" strokeDasharray="420.36 477.52" transform="rotate(-90 90 90)" strokeLinecap="round"/>
-          </svg>
-          <div><strong>88.03<span>%</span></strong><small>REVIEW POLICY RECALL</small></div>
-        </div>
-        <div className="recall-caption"><strong>250 / 284</strong><span>historical cases detected</span><small>THRESHOLD 0.19 · HUMAN REVIEW</small></div>
-      </div>
-    :
-      <div className="nlp-art">
-        <div className="tokens">
-          <span>{isGojek?'Gojek':'bahasa'}</span>
-          <span>{isGojek?'reviews':'makna'}</span>
-          <span>{isGojek?'sentiment':'konteks'}</span>
-        </div>
-        <div className="model-line"/>
-        <div className="bert-node"><GitBranch size={20}/>{isGojek?'3 Models':'IndoBERT'}<span>{isGojek?'TF-IDF · BoW · BiLSTM':'text → sentiment'}</span></div>
-        <div className="model-line"/>
-        <div className="sentiments">
-          <span><i/>{isGojek?'Positive':'Positif'}</span>
-          <span><i/>{isGojek?'Neutral':'Netral'}</span>
-          <span><i/>{isGojek?'Negative':'Negatif'}</span>
-        </div>
-      </div>
-    }
-    <div className="visual-foot">
-      <span>{p.number==='01'?'Delivered-order baseline · GMV excludes freight':p.number==='02'?'Recall shown with precision and workload in the case study':isGojek?'15,000 raw reviews · 3 sentiment classes':'Three-class inference · legacy AMCC prototype'}</span>
-      <span>↗</span>
-    </div>
-  </div>
+
+      {menuOpen && (
+        <nav className="mobile-nav-panel" id="mobile-navigation" aria-label="Mobile navigation">
+          {navigation.map((item) => (
+            <Link href={item.href} key={item.label} onClick={() => setMenuOpen(false)}>
+              {item.label}
+              <ArrowUpRight size={16} />
+            </Link>
+          ))}
+          <a href={github} target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>
+            GitHub <ArrowUpRight size={16} />
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>
+            LinkedIn <ArrowUpRight size={16} />
+          </a>
+        </nav>
+      )}
+    </header>
+  );
 }
-export function ProjectCard({project:p,featured=false}:{project:Project;featured?:boolean}){return <article className={'project-card project-'+p.color+(featured?' featured':'')}><Link href={'/projects/'+p.slug} className="project-image-link" aria-label={'Read '+p.title+' case study'}><ProjectVisual project={p}/><span className="project-open"><ArrowUpRight size={24}/></span></Link><div className="project-card-body"><div className="project-category"><span>{p.category}</span><span>/{p.number}</span></div><Link href={'/projects/'+p.slug}><h3>{p.shortTitle}</h3></Link><p>{p.description}</p><div className="project-meta"><div className="tags">{p.tools.map(t=><span key={t}>{t}</span>)}</div><Link href={'/projects/'+p.slug} className="text-link">Case study <ArrowUpRight size={16}/></Link></div></div></article>}
-// Original project figures stay on GitHub; static export does not optimize remote images.
-// eslint-disable-next-line @next/next/no-img-element
-export function SourceImage({src,alt,source}:{src:string;alt:string;source:string}){const [failed,setFailed]=useState(false);return <figure className="source-figure">{!failed&&<img src={src} alt={alt} loading="lazy" onError={()=>setFailed(true)}/>}<figcaption>{failed?'Explore the original project figures and application in the repository.':alt} <a href={source} target="_blank" rel="noreferrer">View source ↗</a></figcaption></figure>}
-export {ArrowUpRight,ArrowDown};
+
+export function SectionLabel({
+  number,
+  children,
+}: {
+  number: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="section-label" data-reveal>
+      <span>{number}</span>
+      {children}
+    </div>
+  );
+}
+
+export function DataField() {
+  const focusAreas = [
+    { icon: Database, label: "Business intelligence & analytics" },
+    { icon: BrainCircuit, label: "Predictive modeling" },
+    { icon: MessageSquareText, label: "Indonesian NLP & sentiment analysis" },
+    { icon: ChartNoAxesCombined, label: "Model evaluation & communication" },
+  ];
+
+  return (
+    <aside className="focus-panel" aria-label="Focus areas" data-reveal>
+      <div className="focus-panel-top">
+        <span>Focus areas</span>
+        <span>01 — 04</span>
+      </div>
+
+      <ul className="focus-list">
+        {focusAreas.map(({ icon: Icon, label }) => (
+          <li key={label}>
+            <span aria-hidden="true" />
+            <Icon size={15} aria-hidden="true" />
+            {label}
+          </li>
+        ))}
+      </ul>
+
+      <div className="focus-panel-bottom">
+        <div className="signal-mark" aria-hidden="true">
+          {Array.from({ length: 6 }, (_, index) => <i key={index} />)}
+        </div>
+        <p>FROM RAW DATA<br />TO DECISION-READY INSIGHT</p>
+      </div>
+    </aside>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer id="contact" className="contact-section">
+      <div className="wrap">
+        <SectionLabel number="06">LET&apos;S CONNECT</SectionLabel>
+
+        <div className="contact-grid" data-reveal>
+          <h2>
+            Good questions.<br />
+            <span>Better together.</span>
+          </h2>
+
+          <div>
+            <p>
+              Have an interesting problem,<br />
+              a project idea, or a new perspective?<br />
+              I&apos;d love to connect.
+            </p>
+            <a className="button button-white" href={`mailto:${profile.email}`}>
+              Let&apos;s talk by email <ArrowUpRight size={17} />
+            </a>
+            <a className="contact-email" href={`mailto:${profile.email}`}>
+              {profile.email}
+            </a>
+            <div className="contact-links">
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                LinkedIn <ArrowUpRight size={14} />
+              </a>
+              <a href={github} target="_blank" rel="noreferrer">
+                GitHub <ArrowUpRight size={14} />
+              </a>
+              <a href={profile.resume} download={profile.resumeFilename}>
+                Download CV <ArrowDown size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© 2026 Muhammad Pangeran Nabil</p>
+          <span>Built with curiosity. Grounded in evidence.</span>
+          <a href="#top">Back to top <ArrowUp size={14} /></a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export function ProjectVisual({ project: p }: { project: Project }) {
+  const isOlist = p.number === "01";
+  const isStudent = p.number === "02";
+  const isGojek = p.number === "04";
+
+  const heading = isOlist
+    ? ["OLIST / ANALYTICAL SNAPSHOT", "2016—2018"]
+    : isStudent
+      ? ["STUDENT SUCCESS / REVIEW POLICY", "HISTORICAL HOLDOUT"]
+      : isGojek
+        ? ["GOJEK / SENTIMENT ANALYSIS", "GOOGLE PLAY REVIEWS"]
+        : ["INDOBERT / TEXT TO SIGNAL", "INDONESIAN NLP"];
+
+  return (
+    <div className={`project-visual ${p.color}`}>
+      <div className="visual-heading">
+        <span>{heading[0]}</span>
+        <span>{heading[1]}</span>
+      </div>
+
+      {isOlist ? (
+        <div className="visual-body">
+          <div className="visual-hero-stat">
+            <span>DELIVERED ORDERS</span>
+            <strong>96,478</strong>
+            <small>Brazilian e-commerce dataset</small>
+          </div>
+          <div className="visual-bars">
+            <div className="visual-bar-row">
+              <div><span>Product GMV</span><strong>R$13.22M</strong></div>
+              <div className="visual-bar-track"><i style={{ width: "85.75%" }} /></div>
+            </div>
+            <div className="visual-bar-row">
+              <div><span>Order value, incl. freight</span><strong>R$15.42M</strong></div>
+              <div className="visual-bar-track"><i style={{ width: "100%" }} /></div>
+            </div>
+          </div>
+        </div>
+      ) : isStudent ? (
+        <div className="visual-body visual-student">
+          <div className="visual-gauge">
+            <div>
+              <strong>88.03%</strong>
+              <span>DROPOUT RECALL</span>
+            </div>
+          </div>
+          <div className="visual-side-stat">
+            <span>SELECTED REVIEW POLICY</span>
+            <strong>250 / 284</strong>
+            <p>Historical dropout cases detected at the selected threshold.</p>
+            <small>THRESHOLD 0.19 · HUMAN REVIEW</small>
+          </div>
+        </div>
+      ) : (
+        <div className="visual-body visual-nlp">
+          <div className="visual-token-row">
+            {isGojek ? (
+              <>
+                <span>ulasan aplikasi</span>
+                <span>pengalaman pengguna</span>
+                <span>sentimen</span>
+              </>
+            ) : (
+              <>
+                <span>kurikulum</span>
+                <span>pembelajaran</span>
+                <span>opini publik</span>
+              </>
+            )}
+          </div>
+          <div className="visual-model-node">
+            <GitBranch size={19} />
+            <strong>{isGojek ? "3 model approaches" : "IndoBERT"}</strong>
+            <small>{isGojek ? "TF-IDF · BoW · BiLSTM" : "contextual text inference"}</small>
+          </div>
+          <div className="visual-output-row">
+            <span>Positive</span>
+            <span>Neutral</span>
+            <span>Negative</span>
+          </div>
+        </div>
+      )}
+
+      <div className="visual-foot">
+        <span>
+          {isOlist
+            ? "Delivered-order baseline · GMV excludes freight"
+            : isStudent
+              ? "Recall shown with precision and workload in the case study"
+              : isGojek
+                ? "15,000 raw reviews · 3 sentiment classes"
+                : "Three-class inference · legacy AMCC prototype"}
+        </span>
+        <span>↗</span>
+      </div>
+    </div>
+  );
+}
+
+export function ProjectCard({
+  project: p,
+  featured = false,
+}: {
+  project: Project;
+  featured?: boolean;
+}) {
+  return (
+    <article
+      className={`project-card project-${p.color}${featured ? " featured" : ""}`}
+      data-reveal
+      data-tilt
+    >
+      <Link
+        href={`/projects/${p.slug}/`}
+        className="project-image-link"
+        aria-label={`Read ${p.title} case study`}
+      >
+        <ProjectVisual project={p} />
+        <span className="project-open" aria-hidden="true">
+          <ArrowUpRight size={22} />
+        </span>
+      </Link>
+
+      <div className="project-card-body">
+        <div className="project-category">
+          <span>{p.category}</span>
+          <span>/{p.number}</span>
+        </div>
+        <Link href={`/projects/${p.slug}/`}>
+          <h3>{p.shortTitle}</h3>
+        </Link>
+        <p>{p.description}</p>
+        <div className="project-meta">
+          <div className="tags">
+            {p.tools.map((tool) => <span key={tool}>{tool}</span>)}
+          </div>
+          <Link href={`/projects/${p.slug}/`} className="text-link">
+            Case study <ArrowUpRight size={14} />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function SourceImage({
+  src,
+  alt,
+  source,
+}: {
+  src: string;
+  alt: string;
+  source: string;
+}) {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <figure className="source-figure" data-reveal>
+      {!failed && (
+        // The source figures live in the project repositories; static export uses a plain image URL.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />
+      )}
+      <figcaption>
+        <span>
+          {failed
+            ? "The figure could not be loaded here. Open the project repository to inspect the original artifact."
+            : alt}
+        </span>
+        <a href={source} target="_blank" rel="noreferrer">
+          View source <ArrowUpRight size={13} />
+        </a>
+      </figcaption>
+    </figure>
+  );
+}
+
+export function CaseStudyToc({
+  sections,
+}: {
+  sections: { id: string; label: string }[];
+}) {
+  const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
+
+  useEffect(() => {
+    const targets = sections
+      .map(({ id }) => document.getElementById(id))
+      .filter((element): element is HTMLElement => element instanceof HTMLElement);
+
+    if (!targets.length || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (visible[0]) setActiveId(visible[0].target.id);
+      },
+      {
+        rootMargin: "-18% 0px -66% 0px",
+        threshold: [0, 0.15, 0.35],
+      },
+    );
+
+    targets.forEach((target) => observer.observe(target));
+    return () => observer.disconnect();
+  }, [sections]);
+
+  const activeIndex = Math.max(0, sections.findIndex((section) => section.id === activeId));
+
+  return (
+    <aside className="case-toc" aria-label="Case study contents">
+      <span>IN THIS CASE STUDY</span>
+      <nav className="case-toc-links">
+        {sections.map((section, index) => (
+          <a
+            key={section.id}
+            href={`#${section.id}`}
+            aria-current={activeId === section.id ? "location" : undefined}
+          >
+            <small>0{index + 1}</small>
+            {section.label}
+          </a>
+        ))}
+      </nav>
+      <span className="case-toc-progress" aria-hidden="true">
+        <i style={{ width: `${((activeIndex + 1) / sections.length) * 100}%` }} />
+      </span>
+    </aside>
+  );
+}
+

@@ -1,55 +1,119 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
-/** Progressive enhancement: content remains visible without JavaScript. */
+/**
+ * Progressive enhancement:
+ * - scroll reveal is enabled only after JavaScript is ready;
+ * - pointer glow and project-card tilt are desktop enhancements;
+ * - reduced-motion preferences disable non-essential motion.
+ */
 export function SiteMotion() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (preference.matches || !('IntersectionObserver' in window)) return;
+    const root = document.documentElement;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const revealTargets = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-reveal]"),
+    );
 
-    const animations = new Set<Animation>();
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        observer.unobserve(entry.target);
-        if (preference.matches) return;
-        const animation = entry.target.animate(
-          [
-            { opacity: 0.35, transform: 'translateY(24px)' },
-            { opacity: 1, transform: 'translateY(0)' },
-          ],
-          { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'none' },
-        );
-        animations.add(animation);
-        animation.onfinish = () => animations.delete(animation);
-      });
-    }, { threshold: 0.08 });
+    const updateScrollProgress = () => {
+      const scrollable = root.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      root.style.setProperty("--scroll-progress", `${Math.min(100, Math.max(0, progress))}%`);
+    };
 
-    const frame = requestAnimationFrame(() => {
-      document.querySelectorAll(
-        '.section-label, .about-grid, .section-heading, .toolkit-item, .project-card, .timeline article, .education-grid > div, .case-content > section, .contact-grid, .next-project'
-      ).forEach((element) => observer.observe(element));
-    });
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
 
-    const stop = () => {
-      if (preference.matches) {
-        observer.disconnect();
-        animations.forEach((animation) => animation.cancel());
-        animations.clear();
+    let observer: IntersectionObserver | undefined;
+
+    if (reducedMotion.matches) {
+      revealTargets.forEach((element) => element.classList.add("is-visible"));
+      root.classList.remove("motion-ready");
+    } else if ("IntersectionObserver" in window) {
+      root.classList.add("motion-ready");
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            observer?.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -7% 0px" },
+      );
+
+      revealTargets.forEach((element) => observer?.observe(element));
+    } else {
+      revealTargets.forEach((element) => element.classList.add("is-visible"));
+    }
+
+    const onMotionPreferenceChange = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        root.classList.remove("motion-ready");
+        revealTargets.forEach((element) => element.classList.add("is-visible"));
+        observer?.disconnect();
       }
     };
-    preference.addEventListener('change', stop);
+
+    reducedMotion.addEventListener("change", onMotionPreferenceChange);
+
+    let pointerFrame = 0;
+    const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType === "touch" || reducedMotion.matches) return;
+      if (pointerFrame) cancelAnimationFrame(pointerFrame);
+      pointerFrame = requestAnimationFrame(() => {
+        root.style.setProperty("--pointer-x", `${event.clientX}px`);
+        root.style.setProperty("--pointer-y", `${event.clientY}px`);
+      });
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+
+    const tiltCards = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-tilt]"),
+    );
+    const tiltCleanups: (() => void)[] = [];
+
+    if (!reducedMotion.matches && window.matchMedia("(pointer: fine)").matches) {
+      tiltCards.forEach((card) => {
+        const onTiltMove = (event: PointerEvent) => {
+          const rect = card.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width;
+          const y = (event.clientY - rect.top) / rect.height;
+          card.style.setProperty("--tilt-x", `${(x - 0.5) * 3.2}deg`);
+          card.style.setProperty("--tilt-y", `${(0.5 - y) * 3.2}deg`);
+        };
+
+        const onTiltLeave = () => {
+          card.style.setProperty("--tilt-x", "0deg");
+          card.style.setProperty("--tilt-y", "0deg");
+        };
+
+        card.addEventListener("pointermove", onTiltMove);
+        card.addEventListener("pointerleave", onTiltLeave);
+        tiltCleanups.push(() => {
+          card.removeEventListener("pointermove", onTiltMove);
+          card.removeEventListener("pointerleave", onTiltLeave);
+        });
+      });
+    }
+
     return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      animations.forEach((animation) => animation.cancel());
-      preference.removeEventListener('change', stop);
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+      window.removeEventListener("pointermove", onPointerMove);
+      reducedMotion.removeEventListener("change", onMotionPreferenceChange);
+      observer?.disconnect();
+      if (pointerFrame) cancelAnimationFrame(pointerFrame);
+      tiltCleanups.forEach((cleanup) => cleanup());
+      root.classList.remove("motion-ready");
     };
   }, [pathname]);
 
-  return null;
+  return <div id="scroll-progress" aria-hidden="true" />;
 }
